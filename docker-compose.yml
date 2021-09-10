@@ -1,0 +1,20 @@
+version: '3'
+
+volumes:
+  postgres_data:
+      driver: local
+
+services:
+  nifi: 
+    build: ./nifi
+    ports: 
+      - 8080:8080
+      - 8443:8443
+  postgres:
+      build: : ./postgres
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: keycloak
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: password
